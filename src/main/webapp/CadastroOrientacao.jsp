@@ -23,9 +23,9 @@
         <h1>Cadastrar de Orientação:</h1>
         
         <form method="POST" name="CadastrarOrientacao">
-            <label>Descrição da Orientação: </label><input required type="text" name="descricaoOrientacao">
-            <label>Orientando da Orientação: </label><input  required type="text" name="orientadoOrientacao">
-            <select required name="option">
+            <label>Descrição da Orientação: </label><input type="text" name="descricaoOrientacao">
+            <label>Orientando da Orientação: </label><input  type="text" name="orientadoOrientacao">
+            <select name="option">
                     <option value="">Selecione o Professor</option>
                     <c:forEach var="objetoDaVez" items="${objetoRecebido}">
                         <option value="${objetoDaVez.idProfessor}">
@@ -36,6 +36,7 @@
             <button type="submit" value="Cadastrar">Cadastrar</button>
         </form>
         
+        <div><h5>$(msgCampos)</h5></div>
         <div><h4>${msgSucesso}</h4></div>
     </body>
 </html>

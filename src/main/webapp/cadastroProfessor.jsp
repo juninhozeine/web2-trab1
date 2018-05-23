@@ -23,10 +23,11 @@
         <h1>Bem Vindo a Tela de Cadastro de Professores!</h1>
         
         <form method="POST" name="cadastrarProfessores">
-            <label>Nome do Professor: </label><input required type="text" name="nomeProfessor">
+            <label>Nome do Professor: </label><input type="text" name="nomeProfessor">
             <button type="submite" value="Cadastrar">Cadastrar</button>
         </form>
         
         <div><h4>${msgSucesso}</h4></div>
+        <div><h5>${msgCampos}</h5></div>
     </body>
 </html>

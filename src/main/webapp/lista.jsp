@@ -25,8 +25,9 @@
         <fieldset> <legend>Busca de professor e listagem</legend>        
             <form method="GET" action="lista" accept-charset="iso-8859-1" class="doLadinho">
                 <p>Pesquise o professor</p>
-                <input required name="inputNome"/>
+                <input name="inputNome"/>
                 <button type="submit">Pesquisar</button>
+                
             </form>
             <form method="GET" action="lista" accept-charset="iso-8859-1" class="doLadinho">
                 <input class="invisivel" name="inputNome"/>
@@ -43,5 +44,6 @@
                 </c:forEach>
             </ul>
         </fieldset>
+        <div><h4>${msgCampos}</h4></div>
     </body>
 </html>

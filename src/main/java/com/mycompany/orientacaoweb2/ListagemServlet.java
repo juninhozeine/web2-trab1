@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 public class ListagemServlet extends HttpServlet {
     
     OrientacaoDAO oriDao = new OrientacaoDAO();
-
+    
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -28,14 +28,23 @@ public class ListagemServlet extends HttpServlet {
             return;
         }
         
+        String inputNome = request.getParameter("inputNome");
+        String msgCampos = "";
         ArrayList<Orientacao> arrays = new ArrayList<>();
-        try {
-            arrays = oriDao.listar(request.getParameter("inputNome"));
-        } catch (Exception ex) {
-            Logger.getLogger(OrientacaoServlet.class.getName()).log(Level.SEVERE, null, ex);
+        
+        if(inputNome.equals("")){
+            msgCampos = "Campo 'Pesquise o professor' obrigatório";
+        }else{        
+            
+            try {
+                arrays = oriDao.listar(inputNome);
+            } catch (Exception ex) {
+                Logger.getLogger(OrientacaoServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
-             
         request.setAttribute("orientacoes", arrays);
+        request.setAttribute("msgCampos", msgCampos);
         request.getRequestDispatcher("lista.jsp").forward(request, response);
     }
 }

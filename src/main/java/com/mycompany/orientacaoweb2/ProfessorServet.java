@@ -39,17 +39,29 @@ public class ProfessorServet extends HttpServlet {
             throws ServletException, IOException {
 
         Professor p = new Professor();
-        p.setNomeProfessor(request.getParameter("nomeProfessor"));
-        String msg = "";
-        try {
-            profDao.criar(p);
-            msg = "Professor Cadastrado com Sucesso";
-        } catch (Exception ex) {
-            msg = "Não foi Possível Cadastrar Professor";
-            Logger.getLogger(ProfessorServet.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
-        request.setAttribute("msgSucesso", msg);
+        String nomeProfessor = request.getParameter("nomeProfessor");
+        p.setNomeProfessor(nomeProfessor);
+        String msg = "";
+        String msgCampos = "";
+        
+        if(nomeProfessor.equals("")){
+            msgCampos = "Campo 'Nome' obrigatório";
+        }else{      
+
+            try {
+                profDao.criar(p);
+                msg = "Professor Cadastrado com Sucesso";
+            } catch (Exception ex) {
+                msg = "Não foi Possível Cadastrar Professor";
+                Logger.getLogger(ProfessorServet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            
+        }
+
+        request.setAttribute("msgSucesso", msg);    
+        request.setAttribute("msgCampos", msgCampos);
         request.getRequestDispatcher("cadastroProfessor.jsp").forward(request, response);
 
     }

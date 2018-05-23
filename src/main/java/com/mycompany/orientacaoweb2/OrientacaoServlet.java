@@ -45,20 +45,36 @@ public class OrientacaoServlet extends HttpServlet {
      protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
         Orientacao orientacao = new Orientacao();
-         
-        orientacao.setDescricaoOrientacao(request.getParameter("descricaoOrientacao"));
-        orientacao.setOrientadoOrientacao(request.getParameter("orientadoOrientacao"));
-        orientacao.getProfessor().setIdProfessor(Integer.parseInt(request.getParameter("option")));
-         
+        
+        String descricaoOrientacao = request.getParameter("descricaoOrientacao");
+        String option = request.getParameter("option");
         String msg = "";
-        try {
-            oriDao.inserir(orientacao);
-            msg = "Orientação inserida com sucesso.";
-        } catch (Exception ex) {
-            msg = "Não foi possível inserir orientação.";
-            Logger.getLogger(OrientacaoServlet.class.getName()).log(Level.SEVERE, null, ex);
+        String msgCampos = "";
+        
+        String orientadoOrientacao = request.getParameter("orientadoOrientacao");
+   
+                
+        orientacao.setDescricaoOrientacao(descricaoOrientacao);
+        orientacao.setOrientadoOrientacao(orientadoOrientacao);
+        orientacao.getProfessor().setIdProfessor(Integer.parseInt(option));
+        if(descricaoOrientacao.equals("") || orientadoOrientacao.equals("") || option.equals("")){
+            msgCampos = "Campo 'Descrição' ou campo 'Orientado' ou campo 'Selecione um professor' não foram devidamente preenchidos";
+            
+        }else{
+
+            
+            try {
+                oriDao.inserir(orientacao);
+                msg = "Orientação inserida com sucesso.";
+            } catch (Exception ex) {
+                msg = "Não foi possível inserir orientação.";
+                Logger.getLogger(OrientacaoServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
+        
         request.setAttribute("msgSucesso", msg);
+        request.setAttribute("msgCampos", msgCampos);
         request.getRequestDispatcher("CadastroOrientacao.jsp").forward(request, response); 
  
      }
